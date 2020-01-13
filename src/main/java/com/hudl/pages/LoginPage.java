@@ -1,6 +1,7 @@
 package com.hudl.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends AbstractPage {
@@ -18,9 +19,17 @@ public class LoginPage extends AbstractPage {
     }
 
     public HomePage login(String username, String password) {
-        driver.findElement(EMAIL).sendKeys(username);
-        driver.findElement(PASSWORD).sendKeys(password);
-        driver.findElement(LOGIN).click();
+
+        try{
+            driver.findElement(EMAIL).sendKeys(username);
+            driver.findElement(PASSWORD).sendKeys(password);
+            driver.findElement(LOGIN).click();
+            System.out.println("Element present");
+        }
+        catch(NoSuchElementException e){
+            //Element is not present
+            System.out.println("Element not present");
+        }
         return new HomePage(driver);
     }
 
